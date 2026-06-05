@@ -20,14 +20,19 @@ struct ContentView: View {
                         .foregroundStyle(.gray)
                         .padding()
                 } else {
-                    List(trainingStore.trainings) { training in
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(training.name)
-                                .font(.headline)
-                            
-                            Text("\(training.part) / \(training.weight)kg × \(training.reps)回 × \(training.sets)セット")
-                                .font(.subheadline)
-                                .foregroundStyle(.gray)
+                    List {
+                        ForEach(trainingStore.trainings) { training in
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(training.name)
+                                    .font(.headline)
+                                
+                                Text("\(training.part) / \(training.weight)kg × \(training.reps)回 × \(training.sets)セット")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                        .onDelete { indexSet in
+                            trainingStore.trainings.remove(atOffsets: indexSet)
                         }
                     }
                 }
